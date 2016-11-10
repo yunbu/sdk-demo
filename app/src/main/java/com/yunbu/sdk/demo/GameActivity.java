@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.yunbu.game.sdk.GameSDK;
-import com.yunbu.game.sdk.data.DataCallback;
-import com.yunbu.game.sdk.data.GameInfo;
-import com.yunbu.game.sdk.data.LevelInfo;
+import com.zeus.game.sdk.AresSDK;
+import com.zeus.game.sdk.data.DataCallback;
+import com.zeus.game.sdk.data.GameInfo;
+import com.zeus.game.sdk.data.LevelInfo;
 
 import org.json.JSONObject;
 
@@ -99,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
 
-        GameSDK.saveGameInfo(this.getApplicationContext(), gameInfo, levelInfo, new DataCallback<String>() {
+        AresSDK.saveGameInfo(this.getApplicationContext(), gameInfo, levelInfo, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 Log.d(TAG, "Success:" + data);
@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void getGame(View view) {
-        GameSDK.loadGameInfo(this.getApplicationContext(), new DataCallback<GameInfo>() {
+        AresSDK.loadGameInfo(this.getApplicationContext(), new DataCallback<GameInfo>() {
             @Override
             public void onSuccess(GameInfo data) {
                 Log.d(TAG, "data:" + (data == null ? null : data.toJSON().toString()));
@@ -184,6 +184,6 @@ public class GameActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         GameActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
         Log.d(TAG, "onRequestPermissionsResult:" + requestCode);
-        GameSDK.init(getApplicationContext());
+        AresSDK.init(getApplicationContext());
     }
 }

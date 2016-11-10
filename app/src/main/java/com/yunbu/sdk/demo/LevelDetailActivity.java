@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.yunbu.game.sdk.GameSDK;
-import com.yunbu.game.sdk.data.DataCallback;
-import com.yunbu.game.sdk.data.LevelInfo;
+import com.zeus.game.sdk.AresSDK;
+import com.zeus.game.sdk.data.DataCallback;
+import com.zeus.game.sdk.data.LevelInfo;
 import com.yunbu.sdk.demo.baseview.BaseRecyclerAdapter;
 import com.yunbu.sdk.demo.baseview.RecyclerViewHolder;
 import com.yunbu.sdk.demo.baseview.DividerItemDecoration;
@@ -92,7 +92,7 @@ public class LevelDetailActivity extends AppCompatActivity {
     }
 
     private void getLevelAsc() {
-        GameSDK.getLevelInfo(this.getApplicationContext(), true, 1, 20, new DataCallback<List<LevelInfo>>() {
+        AresSDK.getLevelInfo(this.getApplicationContext(), true, 1, 20, new DataCallback<List<LevelInfo>>() {
             @Override
             public void onSuccess(List<LevelInfo> data) {
                 if (data != null) {
@@ -108,7 +108,7 @@ public class LevelDetailActivity extends AppCompatActivity {
     }
 
     private void getLevelDesc() {
-        GameSDK.getLevelInfo(this.getApplicationContext(), false, 1, 20, new DataCallback<List<LevelInfo>>() {
+        AresSDK.getLevelInfo(this.getApplicationContext(), false, 1, 20, new DataCallback<List<LevelInfo>>() {
             @Override
             public void onSuccess(List<LevelInfo> data) {
                 if (data != null) {
