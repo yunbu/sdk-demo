@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:rowCount="4"
+    tools:context="com.yunbu.sdk.demo.MainActivity">
+
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="init"
+        android:text="初始化" />
+
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="devApp"
+        android:text="游戏开发者" />
+
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="gameInfo"
+        android:text="游戏数据" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="showAccount"
+        android:text="账户信息" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="payLog"
+        android:text="支付信息" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:onClick="payResult"
+        android:text="支付结果" />
+
+</GridLayout>

@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zeus.game.sdk.AresSDK;
-import com.zeus.game.sdk.data.DataCallback;
-import com.zeus.game.sdk.data.LevelInfo;
 import com.yunbu.sdk.demo.baseview.BaseRecyclerAdapter;
-import com.yunbu.sdk.demo.baseview.RecyclerViewHolder;
 import com.yunbu.sdk.demo.baseview.DividerItemDecoration;
-
-import org.json.JSONObject;
+import com.yunbu.sdk.demo.baseview.RecyclerViewHolder;
+import com.zeus.sdk.AresSDK;
+import com.zeus.sdk.DataCallback;
+import com.zeus.sdk.param.LevelInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,8 +82,7 @@ public class LevelDetailActivity extends AppCompatActivity {
                 holder.setText(R.id.score, "" + item.getScore());
                 String dateStr = format.format(new Date(item.getOccurTime()));
                 holder.setText(R.id.time, dateStr);
-                JSONObject extra = item.getExtra();
-                holder.setText(R.id.extra, extra == null ? "NULL" : extra.toString());
+                holder.setText(R.id.extra, item.getExtra());
             }
         }
 
@@ -101,8 +98,8 @@ public class LevelDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(String message) {
-                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            public void onFailed(int errCode, String message) {
+                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -117,8 +114,8 @@ public class LevelDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(String message) {
-                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            public void onFailed(int errCode, String message) {
+                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
             }
         });
     }

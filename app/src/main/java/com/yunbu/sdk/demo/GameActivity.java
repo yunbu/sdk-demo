@@ -1,31 +1,19 @@
 package com.yunbu.sdk.demo;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.zeus.game.sdk.AresSDK;
-import com.zeus.game.sdk.data.DataCallback;
-import com.zeus.game.sdk.data.GameInfo;
-import com.zeus.game.sdk.data.LevelInfo;
+import com.alibaba.fastjson.JSON;
+import com.zeus.sdk.AresSDK;
+import com.zeus.sdk.DataCallback;
+import com.zeus.sdk.param.GameInfo;
+import com.zeus.sdk.param.LevelInfo;
 
-import org.json.JSONObject;
-
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
-
-@RuntimePermissions
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = GameActivity.class.getName();
     private EditText mProgressEdit;
@@ -44,7 +32,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        GameActivityPermissionsDispatcher.checkPermissionWithCheck(this);
         mProgressEdit = (EditText) findViewById(R.id.progress_edit);
         mDiamondEdit = (EditText) findViewById(R.id.diamond_edit);
         mGoldEdit = (EditText) findViewById(R.id.gold_edit);
@@ -68,36 +55,21 @@ public class GameActivity extends AppCompatActivity {
 
         GameInfo gameInfo = new GameInfo();
         LevelInfo levelInfo = new LevelInfo();
-        try {
-            gameInfo.setLevel(Integer.parseInt(progress));
-            gameInfo.setDiamond(Integer.parseInt(diamond));
-            gameInfo.setGold(Integer.parseInt(gold));
-            gameInfo.setScore(Integer.parseInt(score));
-            if (!TextUtils.isEmpty(myPack)) {
-                gameInfo.setInventory(new JSONObject(myPack));
-            }
-            if (!TextUtils.isEmpty(extra)) {
-                gameInfo.setExtra(new JSONObject(extra));
-            }
+        gameInfo.setLevel(Integer.parseInt(progress));
+        gameInfo.setDiamond(Integer.parseInt(diamond));
+        gameInfo.setGold(Integer.parseInt(gold));
+        gameInfo.setScore(Integer.parseInt(score));
+        gameInfo.setInventory(myPack);
+        gameInfo.setExtra(extra);
 
-            String level = mLevelEdit.getText().toString();
-            String levelScore = mLevelScoreEdit.getText().toString();
-            String levelExtra = mLevelExtraEdit.getText().toString();
+        String level = mLevelEdit.getText().toString();
+        String levelScore = mLevelScoreEdit.getText().toString();
+        String levelExtra = mLevelExtraEdit.getText().toString();
 
-            levelInfo.setScore(Integer.parseInt(levelScore));
-            levelInfo.setLevel(Integer.parseInt(level));
-            levelInfo.setOccurTime(System.currentTimeMillis());
-            if (!TextUtils.isEmpty(levelExtra)) {
-                levelInfo.setExtra(new JSONObject(levelExtra));
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Exception", e);
-            gameInfo = null;
-        }
-
-        if (gameInfo == null) {
-            return;
-        }
+        levelInfo.setScore(Integer.parseInt(levelScore));
+        levelInfo.setLevel(Integer.parseInt(level));
+        levelInfo.setOccurTime(System.currentTimeMillis());
+        levelInfo.setExtra(levelExtra);
 
         AresSDK.saveGameInfo(this.getApplicationContext(), gameInfo, levelInfo, new DataCallback<String>() {
             @Override
@@ -107,8 +79,8 @@ public class GameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(String message) {
-                Log.d(TAG, "failed:" + message);
+            public void onFailed(int errCode, String message) {
+                Log.d(TAG, "errCode:" + errCode + "  failed:" + message);
                 mResultEdit.setText(message, TextView.BufferType.EDITABLE);
             }
         });
@@ -118,13 +90,13 @@ public class GameActivity extends AppCompatActivity {
         AresSDK.loadGameInfo(this.getApplicationContext(), new DataCallback<GameInfo>() {
             @Override
             public void onSuccess(GameInfo data) {
-                Log.d(TAG, "data:" + (data == null ? null : data.toJSON().toString()));
+                Log.d(TAG, "data:" + (data == null ? null : JSON.toJSONString(data)));
                 mResultEdit.setText(parseGame(data), TextView.BufferType.EDITABLE);
             }
 
             @Override
-            public void onFailed(String message) {
-                mResultEdit.setText(message, TextView.BufferType.EDITABLE);
+            public void onFailed(int errCode, String message) {
+                mResultEdit.setText("errCode:" + errCode + "  failed:" + message, TextView.BufferType.EDITABLE);
             }
         });
     }
@@ -162,28 +134,4 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    @NeedsPermission({Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void checkPermission() {
-
-    }
-
-    @OnShowRationale({Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void ACacheShowRationale(PermissionRequest request) {
-        request.proceed();
-    }
-
-    @OnNeverAskAgain({Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void ACacheOnNeverAskAgain() {
-    }
-
-    @OnPermissionDenied({Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void ACacheOnPermissionDenied() {
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GameActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-        Log.d(TAG, "onRequestPermissionsResult:" + requestCode);
-        AresSDK.init(getApplicationContext());
-    }
 }

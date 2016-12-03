@@ -8,22 +8,32 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.yunbu.sdk.demo.GameActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GameActivity"
+            android:label="游戏数据测试" />
 
         <meta-data
-            android:name="YUNBU_KEY"
-            android:value="YUNBU_DEMO_KEY_123" />
-        <meta-data
-            android:name="YUNBU_DEBUG"
-            android:value="true" />
+            android:name="ZEUS_KEY"
+            android:value="YUN_DEMO_KEY_123" />
 
-        <activity android:name=".LevelDetailActivity"></activity>
+        <activity
+            android:name=".LevelDetailActivity"
+            android:label="游戏关卡详情" />
+        <activity
+            android:name=".AccountActivity"
+            android:label="账户详情" />
+        <activity
+            android:name=".pay.PayLogActivity"
+            android:label="支付日志测试" />
+        <activity
+            android:name=".pay.PayResultActivity"
+            android:label="支付结果测试" />
     </application>
 </manifest>
