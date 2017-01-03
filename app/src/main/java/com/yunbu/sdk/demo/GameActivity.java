@@ -71,34 +71,34 @@ public class GameActivity extends AppCompatActivity {
         levelInfo.setOccurTime(System.currentTimeMillis());
         levelInfo.setExtra(levelExtra);
 
-        AresSDK.saveGameInfo(this.getApplicationContext(), gameInfo, levelInfo, new DataCallback<String>() {
-            @Override
-            public void onSuccess(String data) {
-                Log.d(TAG, "Success:" + data);
-                mResultEdit.setText(data, TextView.BufferType.EDITABLE);
-            }
-
-            @Override
-            public void onFailed(int errCode, String message) {
-                Log.d(TAG, "errCode:" + errCode + "  failed:" + message);
-                mResultEdit.setText(message, TextView.BufferType.EDITABLE);
-            }
-        });
+//        AresSDK.saveGameInfo(this.getApplicationContext(), gameInfo, levelInfo, new DataCallback<String>() {
+//            @Override
+//            public void onSuccess(String data) {
+//                Log.d(TAG, "Success:" + data);
+//                mResultEdit.setText(data, TextView.BufferType.EDITABLE);
+//            }
+//
+//            @Override
+//            public void onFailed(int errCode, String message) {
+//                Log.d(TAG, "errCode:" + errCode + "  failed:" + message);
+//                mResultEdit.setText(message, TextView.BufferType.EDITABLE);
+//            }
+//        });
     }
 
     public void getGame(View view) {
-        AresSDK.loadGameInfo(this.getApplicationContext(), new DataCallback<GameInfo>() {
-            @Override
-            public void onSuccess(GameInfo data) {
-                Log.d(TAG, "data:" + (data == null ? null : JSON.toJSONString(data)));
-                mResultEdit.setText(parseGame(data), TextView.BufferType.EDITABLE);
-            }
-
-            @Override
-            public void onFailed(int errCode, String message) {
-                mResultEdit.setText("errCode:" + errCode + "  failed:" + message, TextView.BufferType.EDITABLE);
-            }
-        });
+//        AresSDK.loadGameInfo(this.getApplicationContext(), new DataCallback<GameInfo>() {
+//            @Override
+//            public void onSuccess(GameInfo data) {
+//                Log.d(TAG, "data:" + (data == null ? null : JSON.toJSONString(data)));
+//                mResultEdit.setText(parseGame(data), TextView.BufferType.EDITABLE);
+//            }
+//
+//            @Override
+//            public void onFailed(int errCode, String message) {
+//                mResultEdit.setText("errCode:" + errCode + "  failed:" + message, TextView.BufferType.EDITABLE);
+//            }
+//        });
     }
 
     public void toLevel(View view) {

@@ -89,35 +89,35 @@ public class LevelDetailActivity extends AppCompatActivity {
     }
 
     private void getLevelAsc() {
-        AresSDK.getLevelInfo(this.getApplicationContext(), true, 1, 20, new DataCallback<List<LevelInfo>>() {
-            @Override
-            public void onSuccess(List<LevelInfo> data) {
-                if (data != null) {
-                    mAdapter.refreshData(data);
-                }
-            }
-
-            @Override
-            public void onFailed(int errCode, String message) {
-                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        AresSDK.getLevelInfo(this.getApplicationContext(), true, 1, 20, new DataCallback<List<LevelInfo>>() {
+//            @Override
+//            public void onSuccess(List<LevelInfo> data) {
+//                if (data != null) {
+//                    mAdapter.refreshData(data);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(int errCode, String message) {
+//                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void getLevelDesc() {
-        AresSDK.getLevelInfo(this.getApplicationContext(), false, 1, 20, new DataCallback<List<LevelInfo>>() {
-            @Override
-            public void onSuccess(List<LevelInfo> data) {
-                if (data != null) {
-                    mAdapter.refreshData(data);
-                }
-            }
-
-            @Override
-            public void onFailed(int errCode, String message) {
-                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        AresSDK.getLevelInfo(this.getApplicationContext(), false, 1, 20, new DataCallback<List<LevelInfo>>() {
+//            @Override
+//            public void onSuccess(List<LevelInfo> data) {
+//                if (data != null) {
+//                    mAdapter.refreshData(data);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(int errCode, String message) {
+//                Toast.makeText(mContext, "errCode:" + errCode + "  failed:" + message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 }
